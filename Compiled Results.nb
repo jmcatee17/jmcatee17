@@ -1,0 +1,343 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 11.3' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[     12035,        335]
+NotebookOptionsPosition[     11727,        321]
+NotebookOutlinePosition[     12079,        337]
+CellTagsIndexPosition[     12036,        334]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"(*", " ", 
+   RowBox[{
+   "import", " ", "data", " ", "compiled", " ", "from", " ", "gluon"}], " ", 
+   "*)"}], "\[IndentingNewLine]", 
+  RowBox[{
+   RowBox[{
+    RowBox[{"data", " ", "=", " ", 
+     RowBox[{"Import", "[", 
+      RowBox[{
+      "\"\</Users/jdmcatee/Desktop/Computational Methods/Final \
+Project/total.dat\>\"", ",", "\"\<TSV\>\""}], "]"}]}], ";"}], "\n", 
+   RowBox[{
+    RowBox[{"r", "=", ".02"}], ";"}], " ", 
+   RowBox[{"(*", " ", 
+    RowBox[{"radius", " ", "of", " ", "ball"}], " ", "*)"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"leeway", " ", "=", 
+     RowBox[{"2", "*", 
+      RowBox[{"(", ".0254", ")"}]}]}], ";"}], " ", 
+   RowBox[{"(*", 
+    RowBox[{
+    "leeway", " ", "of", " ", "2", " ", "inches", " ", "in", " ", "z", " ", 
+     "direction"}], " ", "*)"}], "\[IndentingNewLine]", "\[IndentingNewLine]", 
+   RowBox[{"(*", " ", 
+    RowBox[{
+    "create", " ", "separate", " ", "lists", " ", "for", " ", "each", " ", 
+     "occurence", " ", "in", " ", "order", " ", "to", " ", "plot", " ", 
+     "with", " ", "colors"}], " ", "*)"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"pFloor", "=", 
+     RowBox[{"{", "}"}]}], ";", 
+    RowBox[{"pSide", "=", 
+     RowBox[{"{", "}"}]}], ";", " ", 
+    RowBox[{"pCeiling", "=", 
+     RowBox[{"{", "}"}]}], ";", 
+    RowBox[{"pBack", "=", 
+     RowBox[{"{", "}"}]}], ";", 
+    RowBox[{"pTin", "=", 
+     RowBox[{"{", "}"}]}], ";", " ", 
+    RowBox[{"pNick", "=", 
+     RowBox[{"{", "}"}]}], ";", 
+    RowBox[{"pGoodBoast", "=", 
+     RowBox[{"{", "}"}]}], ";", " ", 
+    RowBox[{"pBadBoast", " ", "=", " ", 
+     RowBox[{"{", "}"}]}], ";"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"i", "=", "1"}], ";"}], "\[IndentingNewLine]", 
+   RowBox[{"While", "[", 
+    RowBox[{
+     RowBox[{"i", "\[LessEqual]", 
+      RowBox[{"Length", "[", "data", "]"}]}], ",", "\[IndentingNewLine]", 
+     RowBox[{
+      RowBox[{"If", "[", 
+       RowBox[{
+        RowBox[{
+         RowBox[{"data", "[", 
+          RowBox[{"[", 
+           RowBox[{"i", ",", "4"}], "]"}], "]"}], "\[Equal]", 
+         RowBox[{"-", "10"}]}], ",", 
+        RowBox[{"AppendTo", "[", 
+         RowBox[{"pFloor", ",", 
+          RowBox[{"data", "[", 
+           RowBox[{"[", "i", "]"}], "]"}]}], "]"}], ",", 
+        "\[IndentingNewLine]", 
+        RowBox[{"If", "[", 
+         RowBox[{
+          RowBox[{
+           RowBox[{"data", "[", 
+            RowBox[{"[", 
+             RowBox[{"i", ",", "4"}], "]"}], "]"}], "\[Equal]", 
+           RowBox[{"-", "25"}]}], ",", 
+          RowBox[{"AppendTo", "[", 
+           RowBox[{"pSide", ",", 
+            RowBox[{"data", "[", 
+             RowBox[{"[", "i", "]"}], "]"}]}], "]"}], ",", 
+          "\[IndentingNewLine]", 
+          RowBox[{"If", "[", 
+           RowBox[{
+            RowBox[{
+             RowBox[{"data", "[", 
+              RowBox[{"[", 
+               RowBox[{"i", ",", "4"}], "]"}], "]"}], "\[Equal]", "25"}], ",", 
+            RowBox[{"AppendTo", "[", 
+             RowBox[{"pCeiling", ",", 
+              RowBox[{"data", "[", 
+               RowBox[{"[", "i", "]"}], "]"}]}], "]"}], ",", 
+            "\[IndentingNewLine]", 
+            RowBox[{"If", "[", 
+             RowBox[{
+              RowBox[{
+               RowBox[{"data", "[", 
+                RowBox[{"[", 
+                 RowBox[{"i", ",", "4"}], "]"}], "]"}], "\[Equal]", 
+               RowBox[{"-", "100"}]}], ",", 
+              RowBox[{"AppendTo", "[", 
+               RowBox[{"pTin", ",", 
+                RowBox[{"data", "[", 
+                 RowBox[{"[", "i", "]"}], "]"}]}], "]"}], ",", 
+              "\[IndentingNewLine]", 
+              RowBox[{"If", "[", 
+               RowBox[{
+                RowBox[{
+                 RowBox[{"data", "[", 
+                  RowBox[{"[", 
+                   RowBox[{"i", ",", "4"}], "]"}], "]"}], "\[Equal]", "50"}], 
+                ",", 
+                RowBox[{"AppendTo", "[", 
+                 RowBox[{"pBack", ",", 
+                  RowBox[{"data", "[", 
+                   RowBox[{"[", "i", "]"}], "]"}]}], "]"}], ",", 
+                "\[IndentingNewLine]", 
+                RowBox[{"If", "[", 
+                 RowBox[{
+                  RowBox[{
+                   RowBox[{
+                    RowBox[{"data", "[", 
+                    RowBox[{"[", 
+                    RowBox[{"i", ",", "4"}], "]"}], "]"}], "\[LessEqual]", 
+                    "r"}], " ", "&&", " ", 
+                   RowBox[{
+                    RowBox[{"data", "[", 
+                    RowBox[{"[", 
+                    RowBox[{"i", ",", "6"}], "]"}], "]"}], " ", 
+                    "\[LessEqual]", " ", 
+                    RowBox[{"r", " ", "+", " ", "leeway"}]}]}], ",", 
+                  RowBox[{"AppendTo", "[", 
+                   RowBox[{"pNick", ",", 
+                    RowBox[{"data", "[", 
+                    RowBox[{"[", "i", "]"}], "]"}]}], "]"}], ",", 
+                  "\[IndentingNewLine]", 
+                  RowBox[{"If", "[", 
+                   RowBox[{
+                    RowBox[{
+                    RowBox[{
+                    RowBox[{"data", "[", 
+                    RowBox[{"[", 
+                    RowBox[{"i", ",", "4"}], "]"}], "]"}], "\[LessEqual]", 
+                    "xGood"}], " ", "&&", " ", 
+                    RowBox[{
+                    RowBox[{"data", "[", 
+                    RowBox[{"[", 
+                    RowBox[{"i", ",", "5"}], "]"}], "]"}], "\[GreaterEqual]", 
+                    "yGood"}]}], ",", 
+                    RowBox[{"AppendTo", "[", 
+                    RowBox[{"pGoodBoast", ",", 
+                    RowBox[{"data", "[", 
+                    RowBox[{"[", "i", "]"}], "]"}]}], "]"}], ",", 
+                    RowBox[{"AppendTo", "[", 
+                    RowBox[{"pBadBoast", ",", 
+                    RowBox[{"data", "[", 
+                    RowBox[{"[", "i", "]"}], "]"}]}], "]"}]}], "]"}]}], 
+                 "]"}]}], "]"}]}], "]"}]}], "]"}]}], "]"}]}], "]"}], ";", 
+      "\[IndentingNewLine]", "\t", 
+      RowBox[{"i", "+=", "1"}]}]}], "]"}], "\n", "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"pFloor", "=", 
+     RowBox[{"Drop", "[", 
+      RowBox[{"pFloor", ",", "None", ",", 
+       RowBox[{"{", 
+        RowBox[{"4", ",", "6"}], "}"}]}], "]"}]}], ";"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"pSide", "=", 
+     RowBox[{"Drop", "[", 
+      RowBox[{"pSide", ",", "None", ",", 
+       RowBox[{"{", 
+        RowBox[{"4", ",", "6"}], "}"}]}], "]"}]}], ";"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"pCeiling", "=", 
+     RowBox[{"Drop", "[", 
+      RowBox[{"pCeiling", ",", "None", ",", 
+       RowBox[{"{", 
+        RowBox[{"4", ",", "6"}], "}"}]}], "]"}]}], ";"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"pTin", "=", 
+     RowBox[{"Drop", "[", 
+      RowBox[{"pTin", ",", "None", ",", 
+       RowBox[{"{", 
+        RowBox[{"4", ",", "6"}], "}"}]}], "]"}]}], ";"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"pBack", "=", 
+     RowBox[{"Drop", "[", 
+      RowBox[{"pBack", ",", "None", ",", 
+       RowBox[{"{", 
+        RowBox[{"4", ",", "6"}], "}"}]}], "]"}]}], ";"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"pNick", "=", 
+     RowBox[{"Drop", "[", 
+      RowBox[{"pNick", ",", "None", ",", 
+       RowBox[{"{", 
+        RowBox[{"4", ",", "6"}], "}"}]}], "]"}]}], ";"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"pGoodBoast", " ", "=", 
+     RowBox[{"Drop", "[", 
+      RowBox[{"pGoodBoast", ",", "None", ",", 
+       RowBox[{"{", 
+        RowBox[{"4", ",", "6"}], "}"}]}], "]"}]}], ";"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"pBadBoast", " ", "=", 
+     RowBox[{"Drop", "[", 
+      RowBox[{"pBadBoast", ",", "None", ",", 
+       RowBox[{"{", 
+        RowBox[{"4", ",", "6"}], "}"}]}], "]"}]}], ";"}], 
+   "\[IndentingNewLine]", "\n", 
+   RowBox[{
+    RowBox[{"floor", "=", 
+     RowBox[{"ListPointPlot3D", "[", 
+      RowBox[{"pFloor", ",", 
+       RowBox[{"PlotStyle", "\[Rule]", "Black"}]}], "]"}]}], ";"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"side", "=", 
+     RowBox[{"ListPointPlot3D", "[", 
+      RowBox[{"pSide", ",", 
+       RowBox[{"PlotStyle", "\[Rule]", "Blue"}]}], "]"}]}], ";"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"ceiling", "=", 
+     RowBox[{"ListPointPlot3D", "[", 
+      RowBox[{"pCeiling", ",", 
+       RowBox[{"PlotStyle", "\[Rule]", "Brown"}]}], "]"}]}], ";"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"tin", " ", "=", " ", 
+     RowBox[{"ListPointPlot3D", "[", 
+      RowBox[{"pTin", ",", 
+       RowBox[{"PlotStyle", "\[Rule]", "Orange"}]}], "]"}]}], ";"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"back", "=", 
+     RowBox[{"ListPointPlot3D", "[", 
+      RowBox[{"pBack", ",", 
+       RowBox[{"PlotStyle", "\[Rule]", "Purple"}]}], "]"}]}], ";"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"nick", "=", 
+     RowBox[{"ListPointPlot3D", "[", 
+      RowBox[{"pNick", ",", 
+       RowBox[{"PlotStyle", "\[Rule]", "Green"}]}], "]"}]}], ";"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"goodBoast", " ", "=", 
+     RowBox[{"ListPointPlot3D", "[", 
+      RowBox[{"pGoodBoast", ",", 
+       RowBox[{"PlotStyle", "\[Rule]", "Yellow"}]}], "]"}]}], ";"}], "\n", 
+   RowBox[{
+    RowBox[{"badBoast", " ", "=", 
+     RowBox[{"ListPointPlot3D", "[", 
+      RowBox[{"pBadBoast", ",", 
+       RowBox[{"PlotStyle", "\[Rule]", "Red"}]}], "]"}]}], ";"}], 
+   "\[IndentingNewLine]", "\[IndentingNewLine]", 
+   RowBox[{"Show", "[", 
+    RowBox[{
+    "floor", ",", "side", ",", "ceiling", ",", "tin", ",", "back", ",", 
+     "nick", ",", "goodBoast", ",", "badBoast", ",", " ", 
+     RowBox[{"AxesLabel", "\[Rule]", 
+      RowBox[{"{", 
+       RowBox[{
+       "\"\<Phi (radians)\>\"", ",", "\"\<Theta (radians)\>\"", ",", 
+        "\"\<Velocity (meter / second)\>\""}], "}"}]}], ",", 
+     RowBox[{
+     "PlotLabel", " ", "\[Rule]", " ", 
+      "\"\<Monte Carlo Boast Simulation\>\""}]}], "]"}], "\n", 
+   "\[IndentingNewLine]", 
+   RowBox[{"(*", " ", 
+    RowBox[{
+    "calculate", " ", "percentage", " ", "of", " ", "non", " ", "problem", 
+     " ", "shots", " ", "that", " ", "hit", " ", "nick"}], " ", "*)"}], "\n", 
+   
+   RowBox[{
+    RowBox[{"numberNicks", "=", 
+     RowBox[{"Length", "[", "pNick", "]"}]}], ";"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"numberShots", "=", 
+     RowBox[{"(", 
+      RowBox[{
+       RowBox[{"Length", "[", "pNick", "]"}], "+", 
+       RowBox[{"Length", "[", "pNonNick", "]"}]}], ")"}]}], ";"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"percentNick", " ", "=", " ", 
+     RowBox[{"N", "[", 
+      RowBox[{"numberNicks", " ", "/", " ", "numberShots"}], "]"}]}], 
+    ";"}]}]}]], "Input",
+ CellChangeTimes->{{3.81652339551271*^9, 3.816523441664027*^9}, {
+   3.8166963776157303`*^9, 3.8166963782110786`*^9}, {3.816700190741083*^9, 
+   3.8167002151415167`*^9}, 3.816701300319149*^9, {3.816701487172233*^9, 
+   3.816701496459423*^9}, {3.816701558985951*^9, 3.816701590852878*^9}, 
+   3.817061185578184*^9, 
+   3.8170627232925797`*^9},ExpressionUUID->"51eb7312-e8cd-4c3a-8e73-\
+722c29efa044"]
+},
+WindowSize->{953, 808},
+WindowMargins->{{Automatic, 0}, {Automatic, 0}},
+FrontEndVersion->"11.3 for Mac OS X x86 (32-bit, 64-bit Kernel) (March 5, \
+2018)",
+StyleDefinitions->"Default.nb"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[558, 20, 11165, 299, 1039, "Input",ExpressionUUID->"51eb7312-e8cd-4c3a-8e73-722c29efa044"]
+}
+]
+*)
+
